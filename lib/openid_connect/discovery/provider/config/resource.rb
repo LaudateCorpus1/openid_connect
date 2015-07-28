@@ -15,7 +15,17 @@ module OpenIDConnect
           end
 
           def endpoint
-            SWD.url_builder.build [nil, host, port, path, nil, nil]
+            # TODO: Cleanup logic
+            if defined?(Rails)
+              if Rails.env.development?
+                URI::HTTP.build({:host=>@host, :port=>@port, :path=>@path})
+              else
+                SWD.url_builder.build [nil, host, port, path, nil, nil]
+              end
+            else
+              SWD.url_builder.build [nil, host, port, path, nil, nil]
+            end
+
           rescue URI::Error => e
             raise SWD::Exception.new(e.message)
           end

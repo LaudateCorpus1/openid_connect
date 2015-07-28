@@ -21,7 +21,8 @@ module OpenIDConnect
         :phone_number,
         :phone_number_verified,
         :address,
-        :updated_at
+        :updated_at,
+        :role
       )
       alias_method :subject, :sub
       alias_method :subject=, :sub=
